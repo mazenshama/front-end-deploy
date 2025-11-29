@@ -1,0 +1,43 @@
+<div class="tracker-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="search-box">
+            <input type="text" placeholder="Search for a bus..." [(ngModel)]="searchQuery" />
+            <img src="../../../../assets/icons/search.png" alt="Search" class="search-icon" />
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-label">Active Buses:</span>
+                <span class="stat-value">{{ activeBusesWithLocationCount }}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Total Buses:</span>
+                <span class="stat-value">{{ buses.length }}</span>
+            </div>
+        </div>
+
+        <!-- Loading / Error / Bus List -->
+        <div *ngIf="isLoading" class="loading-message">Loading buses...</div>
+        <div *ngIf="!isLoading && errorMessage" class="error-message">{{ errorMessage }}</div>
+        <div *ngIf="!isLoading && !errorMessage" class="bus-list">
+            <div *ngIf="filteredBuses.length === 0" class="no-buses">No buses available</div>
+            <div class="bus-card" *ngFor="let bus of filteredBuses" [class.selected]="selectedBus?.id === bus.id" (click)="onBusSelect(bus)">
+                <p class="bus-title">Bus {{ bus.number }}</p>
+                <p class="bus-desc">{{ getBusDescription(bus) }}</p>
+                <span *ngIf="hasLocation(bus)" class="location-badge" [class.active]="bus.status === 'active'">
+          {{ bus.status === "active" ? "📍 Live Location" : "📍 Location" }}
+        </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map area -->
+    <div class="map-container">
+        <div id="busMap"></div>
+        <div class="map-controls">
+            <button class="refresh-btn" (click)="refreshData()">🔄 Refresh</button>
+        </div>
+    </div>
+</div>
