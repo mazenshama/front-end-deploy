@@ -8,7 +8,6 @@
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
         "deploy": "gh-pages -d dist/public-transport-tracker"
-
     },
     "private": true,
     "dependencies": {
@@ -34,6 +33,7 @@
         "@types/jasmine": "~5.1.0",
         "@types/leaflet": "^1.9.21",
         "autoprefixer": "^10.4.22",
+        "gh-pages": "^6.3.0",
         "jasmine-core": "~5.2.0",
         "karma": "~6.4.0",
         "karma-chrome-launcher": "~3.2.0",
